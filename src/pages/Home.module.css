@@ -1,0 +1,390 @@
+/* src/pages/Home.module.css */
+
+.home {
+  width: 100%;
+}
+
+/* ================= HERO (GLASS CARD, SIMPLE) ================= */
+
+.hero {
+  position: relative;
+  border-radius: 0 0 32px 32px;
+  padding: 6rem 0 5rem;
+  color: #0b1220;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18), transparent 55%),
+    linear-gradient(135deg, #020617 0%, #020617 40%, #0b1120 100%);
+  overflow: hidden;
+}
+
+/* big soft glow */
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 999px;
+  background: radial-gradient(circle at center, rgba(56, 189, 248, 0.38), transparent 65%);
+  top: -260px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.45;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* remove grid: was too noisy, keeping clean corporate */
+
+/* main glass card */
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2.4rem 2.6rem 2.2rem;
+  border-radius: 1.85rem;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.3), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.3), transparent 55%),
+    rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  box-shadow:
+    0 26px 80px rgba(15, 23, 42, 0.9),
+    0 0 0 1px rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(22px);
+  text-align: center;
+  color: #e5e7eb;
+}
+
+/* inner glow border */
+.heroContent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    rgba(56, 189, 248, 0.8),
+    rgba(59, 130, 246, 0.8),
+    rgba(45, 212, 191, 0.7)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* make children sit above border mask */
+.heroContent > * {
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1.1rem;
+  line-height: 1.2;
+  color: #f9fafb;
+}
+
+.heroContent p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #cbd5f5;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+
+/* buttons row */
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ================= STATS (LIGHT CORPORATE) ================= */
+
+.stats {
+  padding: 3.5rem 0 3.75rem;
+  background: #f9fafb;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.5rem;
+}
+
+.statCard {
+  background: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+  padding: 1.4rem 1.4rem 1.3rem;
+  text-align: left;
+}
+
+.statIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem;
+  margin-bottom: 0.85rem;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #0369a1;
+}
+
+.statCard h3 {
+  font-size: 1.35rem;
+  color: #0f172a;
+  margin-bottom: 0.2rem;
+}
+
+.statCard p {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* ================= FEATURED COURSES ================= */
+
+.featured {
+  padding: 3.75rem 0 3.75rem;
+  background: #ffffff;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.sectionHeader h2 {
+  font-size: 2.1rem;
+  color: #0f172a;
+  margin-bottom: 0.6rem;
+}
+
+.sectionHeader p {
+  font-size: 1rem;
+  color: #6b7280;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.coursesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.courseCard {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.courseCard img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 0.5s ease;
+}
+
+.courseCard:hover img {
+  transform: scale(1.06);
+}
+
+.courseContent {
+  padding: 1.3rem 1.5rem 1.2rem;
+}
+
+.category {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 999px;
+  margin-bottom: 0.7rem;
+}
+
+.courseContent h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+  color: #0f172a;
+}
+
+.courseContent p {
+  color: #6b7280;
+  margin-bottom: 1.1rem;
+  font-size: 0.9rem;
+}
+
+.courseFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f766e;
+}
+
+.viewBtn {
+  color: #0f172a;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #d1d5db;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.viewBtn:hover {
+  color: #0369a1;
+  border-color: #0369a1;
+}
+
+.viewAll {
+  text-align: center;
+}
+
+/* ================= TESTIMONIALS ================= */
+
+.testimonials {
+  padding: 3.75rem 0 3.5rem;
+  background: #f9fafb;
+}
+
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 2rem;
+}
+
+.testimonialCard {
+  background: #ffffff;
+  padding: 1.4rem 1.5rem 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.rating {
+  display: flex;
+  gap: 0.2rem;
+  margin-bottom: 0.7rem;
+}
+
+.testimonialCard p {
+  font-style: italic;
+  color: #4b5563;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-size: 0.96rem;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.author img {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.author div {
+  display: flex;
+  flex-direction: column;
+}
+
+.author strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+.author span {
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+/* ================= CTA (GLASS CARD) ================= */
+
+.cta {
+  padding: 3.5rem 0 4rem;
+  background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+}
+
+.ctaContent {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2rem 2rem 2.2rem;
+  border-radius: 1.7rem;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.24), transparent 60%),
+    rgba(15, 23, 42, 0.94);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  backdrop-filter: blur(22px);
+  color: #e5e7eb;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.9);
+}
+
+.ctaContent h2 {
+  font-size: 2rem;
+  margin-bottom: 0.7rem;
+  color: #f9fafb;
+}
+
+.ctaContent p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 1.7rem;
+  color: #cbd5f5;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4.5rem 0 3.5rem;
+  }
+
+  .heroContent {
+    padding: 2rem 1.7rem 1.8rem;
+  }
+
+  .heroContent h1 {
+    font-size: 2.1rem;
+  }
+
+  .heroContent p {
+    font-size: 0.98rem;
+  }
+
+  .sectionHeader h2 {
+    font-size: 1.8rem;
+  }
+
+  .ctaContent h2 {
+    font-size: 1.85rem;
+  }
+}

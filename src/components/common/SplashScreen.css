@@ -1,0 +1,20 @@
+/* FULL WHITE PAGE */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  background: #ffffff; /* PURE WHITE BG */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CENTER THE VIDEO ONLY — NO BOX */
+.splashVideo {
+  width: min(620px, 90vw);
+  height: auto;
+  object-fit: contain;
+  border: none;
+  background: transparent;
+}

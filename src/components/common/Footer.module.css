@@ -1,0 +1,206 @@
+.footer {
+  background: radial-gradient(circle at top left, #020617, #020617 45%, #020617);
+  color: #e5e7eb;
+  padding: var(--spacing-3xl) 0 var(--spacing-xl);
+  margin-top: auto;
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+}
+
+/* TOP: brand + link columns */
+.topSection {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 2fr);
+  gap: var(--spacing-3xl);
+  align-items: flex-start;
+  padding-top: 1.8rem;
+}
+
+/* ========== BRAND AREA ========== */
+
+/* we use grid here: [logo] | [text + contact] */
+.brandSection {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 1.75rem;
+  row-gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.logo {
+  grid-row: 1 / span 3;  /* logo spans whole height on left */
+  display: inline-flex;
+  align-items: flex-start;
+  text-decoration: none;
+}
+
+/* BIG logo but controlled, left side */
+.logoImg {
+  height: 250px;          /* as you asked */
+  width: auto;
+  max-width: 260px;
+  object-fit: contain;
+  display: block;
+  opacity: 0.97;
+}
+
+/* text lives in the right column */
+.description {
+  grid-column: 2;
+  font-size: 0.938rem;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.86);
+  max-width: 420px;
+  margin: 0;
+}
+
+.contactInfo {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: 0.25rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.875rem;
+  color: rgba(226, 232, 240, 0.88);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.contactItem svg {
+  opacity: 0.85;
+}
+
+.contactItem:hover {
+  color: var(--color-accent);
+}
+
+/* ========== LINKS ========== */
+
+.linksSection {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: var(--spacing-2xl);
+  align-self: center;       /* vertically balanced vs big logo */
+}
+
+.linkColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.linkColumn h3 {
+  font-size: 0.98rem;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-md);
+  color: #e5e7eb;
+}
+
+.link {
+  font-size: 0.875rem;
+  color: rgba(226, 232, 240, 0.8);
+  text-decoration: none;
+  padding: 0.1rem 0;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.link:hover {
+  color: var(--color-accent);
+  transform: translateX(4px);
+}
+
+/* ========== BOTTOM BAR ========== */
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.copyright {
+  font-size: 0.82rem;
+  color: rgba(148, 163, 184, 0.9);
+  text-align: center;
+}
+
+.socialLinks {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  color: #e5e7eb;
+  text-decoration: none;
+  transition: transform var(--transition-base), background var(--transition-base), border-color var(--transition-base);
+}
+
+.socialLink:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+  .topSection {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    padding-top: var(--spacing-lg);
+  }
+
+  /* stack logo + text on small screens */
+  .brandSection {
+    grid-template-columns: 1fr;
+    justify-items: flex-start;
+  }
+
+  .logo {
+    grid-row: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .logoImg {
+    height: 140px;    /* still big but not crazy on mobile */
+    max-width: 220px;
+  }
+
+  .description,
+  .contactInfo {
+    grid-column: 1;
+  }
+
+  .linksSection {
+    align-self: flex-start;
+    padding-top: 0.5rem;
+  }
+
+  .bottomSection {
+    align-items: flex-start;
+  }
+
+  .copyright {
+    text-align: left;
+  }
+}
