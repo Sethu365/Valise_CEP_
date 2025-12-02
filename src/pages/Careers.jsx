@@ -2,7 +2,8 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import PageTransition from "../components/layout/PageTransition";
 import styles from "./Careers.module.css";
-import { Inbox, Paperclip, UploadCloud, CheckCircle } from "lucide-react";
+import { Inbox, Paperclip, UploadCloud } from "lucide-react"; // removed CheckCircle
+import emailjs from "@emailjs/browser";
 
 export default function Careers() {
   const [form, setForm] = useState({
@@ -11,11 +12,10 @@ export default function Careers() {
     course: "",
     phone: "",
   });
-  const [file, setFile] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(null);
   const [errors, setErrors] = useState({});
-  const fileRef = useRef();
+  const formRef = useRef(null); // EmailJS form ref
 
   const courses = [
     "Web Development",
@@ -32,7 +32,6 @@ export default function Careers() {
     if (!form.email.match(/^\S+@\S+\.\S+$/)) e.email = "Valid email required";
     if (!form.course) e.course = "Select a course";
     if (!form.phone.match(/^\+?\d{7,15}$/)) e.phone = "Valid phone required";
-    if (!file) e.file = "Upload CV";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -42,49 +41,39 @@ export default function Careers() {
     setErrors((prev) => ({ ...prev, [e.target.name]: null }));
   };
 
-  const handleFile = (f) => {
-    if (!f) return;
-    const allowed = [
-      "application/pdf",
-      "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    ];
-    if (!allowed.includes(f.type)) {
-      setErrors((prev) => ({
-        ...prev,
-        file: "Please upload PDF / DOC / DOCX",
-      }));
-      return;
-    }
-    setFile(f);
-    setErrors((prev) => ({ ...prev, file: null }));
-  };
-
-  const onDrop = (ev) => {
-    ev.preventDefault();
-    handleFile(ev.dataTransfer.files[0]);
-  };
-
-  const onSelectFile = (ev) => {
-    handleFile(ev.target.files[0]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 900));
+    setSuccess(null);
 
-    setSuccess({
-      title: "Application submitted",
-      message: "We will review your details and contact you soon.",
-    });
+    try {
+      // ⬇️ Put your EmailJS IDs here
+      const SERVICE_ID = "service_dqlssfs";
+      const TEMPLATE_ID = "template_p6phr1i";
+      const PUBLIC_KEY = "7rdoLB7DHMBzAkPil";
 
-    setForm({ name: "", email: "", course: "", phone: "" });
-    setFile(null);
-    setErrors({});
-    setSubmitting(false);
+      await emailjs.sendForm(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        formRef.current,
+        PUBLIC_KEY
+      );
+
+      setSuccess({
+        title: "Application submitted",
+        message: "We will review your details and contact you soon.",
+      });
+
+      setForm({ name: "", email: "", course: "", phone: "" });
+      setErrors({});
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      alert("Failed to submit application. Please try again in a moment.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -186,7 +175,7 @@ export default function Careers() {
             <ul className={styles.steps}>
               <li>
                 <strong>1. Share your profile</strong>
-                <span> – Submit your details and upload your latest CV.</span>
+                <span> – Submit your details and we’ll understand your expertise.</span>
               </li>
               <li>
                 <strong>2. Expert review</strong>
@@ -200,6 +189,7 @@ export default function Careers() {
           </motion.div>
 
           <motion.form
+            ref={formRef}
             className={styles.form}
             onSubmit={handleSubmit}
             initial={{ opacity: 0, x: 20 }}
@@ -212,7 +202,7 @@ export default function Careers() {
             <label>
               Full name
               <input
-                name="name"
+                name="name" // {{name}}
                 placeholder="Enter your full name"
                 value={form.name}
                 onChange={handleChange}
@@ -225,7 +215,7 @@ export default function Careers() {
             <label>
               Email address
               <input
-                name="email"
+                name="email" // {{email}}
                 placeholder="you@example.com"
                 value={form.email}
                 onChange={handleChange}
@@ -238,7 +228,7 @@ export default function Careers() {
             <label>
               Preferred teaching domain
               <select
-                name="course"
+                name="course" // {{course}}
                 value={form.course}
                 onChange={handleChange}
               >
@@ -255,7 +245,7 @@ export default function Careers() {
             <label>
               Phone / WhatsApp
               <input
-                name="phone"
+                name="phone" // {{phone}}
                 placeholder="+91 XXXXXXXXXX"
                 value={form.phone}
                 onChange={handleChange}
@@ -264,43 +254,6 @@ export default function Careers() {
                 <span className={styles.error}>{errors.phone}</span>
               )}
             </label>
-
-            <div
-              className={styles.dropzone}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={onDrop}
-              onClick={() => fileRef.current?.click()}
-            >
-              <input
-                type="file"
-                ref={fileRef}
-                onChange={onSelectFile}
-                hidden
-              />
-              <UploadCloud size={20} />
-              <div className={styles.dropzoneText}>
-                <span>
-                  {file ? file.name : "Upload CV (PDF / DOC / DOCX)"}
-                </span>
-                <small>Drag & drop or click to browse</small>
-              </div>
-            </div>
-            {errors.file && (
-              <span className={styles.error}>{errors.file}</span>
-            )}
-
-            {file && (
-              <div className={styles.filePreview}>
-                <CheckCircle size={16} />
-                <span>{file.name}</span>
-                <button
-                  type="button"
-                  onClick={() => setFile(null)}
-                >
-                  Remove
-                </button>
-              </div>
-            )}
 
             <button
               type="submit"

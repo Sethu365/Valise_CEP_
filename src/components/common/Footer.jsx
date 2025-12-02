@@ -43,10 +43,10 @@ const Footer = () => {
         <div className={styles.topSection}>
           {/* BRAND + CONTACT */}
           <div className={styles.brandSection}>
-            <Link to="/" className={styles.logo} aria-label="TakeOff Upskill home">
+            <Link to="/" className={styles.logo} aria-label="home">
               <img
                 src={logo}
-                alt="TakeOff Upskill"
+                alt="Conzura"
                 className={styles.logoImg}
               />
             </Link>
@@ -63,16 +63,16 @@ const Footer = () => {
                 className={styles.contactItem}
               >
                 <Mail size={16} />
-                info@takeoffupskill.com
+                info@conzuragroups.com
               </a>
-              <a href="tel:+1234567890" className={styles.contactItem}>
+              <a href="tel:+919876543210" className={styles.contactItem}>
                 <Phone size={16} />
-                +1 (234) 567-890
+                +91 98765 43210
               </a>
-              <div className={styles.contactItem}>
+              {/* <div className={styles.contactItem}>
                 <MapPin size={16} />
                 123 Learning St, Tech City
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -99,25 +99,39 @@ const Footer = () => {
         </div>
 
         {/* BOTTOM BAR */}
-        <div className={styles.bottomSection}>
-          <p className={styles.copyright}>
-            © {currentYear} TakeOff Upskill. All rights reserved.
-          </p>
-          <div className={styles.socialLinks}>
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.url}
-                className={styles.socialLink}
-                aria-label={social.label}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
-        </div>
+       <div className={styles.bottomSection}>
+  <div>
+    <p className={styles.copyright}>
+      © {currentYear} Conzura Groups. All rights reserved.
+    </p>
+    <p className={styles.powered}>
+      Powered by{" "}
+      <a
+        href="https://www.valisetechnologies.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Valise Technologies
+      </a>
+    </p>
+  </div>
+
+  <div className={styles.socialLinks}>
+    {socialLinks.map((social) => (
+      <a
+        key={social.label}
+        href={social.url}
+        className={styles.socialLink}
+        aria-label={social.label}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {social.icon}
+      </a>
+    ))}
+  </div>
+</div>
+
       </div>
     </footer>
   );

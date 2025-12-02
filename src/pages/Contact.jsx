@@ -1,9 +1,10 @@
 // src/pages/Contact.jsx
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import PageTransition from "../components/layout/PageTransition";
 import { setPageTitle } from "../utils/helpers";
 import styles from "./Contact.module.css";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   useEffect(() => {
@@ -19,6 +20,8 @@ const Contact = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const formRef = useRef(null); // ref for EmailJS
 
   const courses = [
     "Web Development",
@@ -34,19 +37,40 @@ const Contact = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Course Enquiry Submitted:", form);
-    setSubmitted(true);
+    setSubmitted(false);
+    setSending(true);
 
-    // optional: reset form
-    setForm({
-      name: "",
-      email: "",
-      phone: "",
-      course: "",
-      message: "",
-    });
+    try {
+      // 👇 Replace these with your actual EmailJS IDs
+      const SERVICE_ID = "service_dqlssfs";
+      const TEMPLATE_ID = "template_5d294t3";
+      const PUBLIC_KEY = "7rdoLB7DHMBzAkPil";
+
+      await emailjs.sendForm(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        formRef.current,
+        PUBLIC_KEY
+      );
+
+      setSubmitted(true);
+
+      // Reset controlled inputs
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        course: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      alert("Failed to send enquiry. Please try again in a moment.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -86,7 +110,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className={styles.infoLabel}>Email</p>
-                    <p className={styles.infoValue}>info@gmail.com</p>
+                    <p className={styles.infoValue}>info@conzuragroups.com</p>
                   </div>
                 </div>
 
@@ -135,13 +159,17 @@ const Contact = () => {
                 options.
               </p>
 
-              <form onSubmit={handleSubmit} className={styles.form}>
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className={styles.form}
+              >
                 {/* Name */}
                 <label className={styles.field}>
                   <span>Full name</span>
                   <input
                     type="text"
-                    name="name"
+                    name="name" // <-- EmailJS uses this as {{name}}
                     value={form.name}
                     onChange={handleChange}
                     placeholder="Enter your name"
@@ -154,7 +182,7 @@ const Contact = () => {
                   <span>Email address</span>
                   <input
                     type="email"
-                    name="email"
+                    name="email" // <-- {{email}}
                     value={form.email}
                     onChange={handleChange}
                     placeholder="example@gmail.com"
@@ -167,7 +195,7 @@ const Contact = () => {
                   <span>Phone number</span>
                   <input
                     type="text"
-                    name="phone"
+                    name="phone" // <-- {{phone}}
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="+91 XXXXXXXXXX"
@@ -179,7 +207,7 @@ const Contact = () => {
                 <label className={styles.field}>
                   <span>Select course</span>
                   <select
-                    name="course"
+                    name="course" // <-- {{course}}
                     value={form.course}
                     onChange={handleChange}
                     required
@@ -197,7 +225,7 @@ const Contact = () => {
                 <label className={styles.field}>
                   <span>Message</span>
                   <textarea
-                    name="message"
+                    name="message" // <-- {{message}}
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell us about your background and what you want to achieve…"
@@ -207,8 +235,8 @@ const Contact = () => {
                 </label>
 
                 {/* Submit */}
-                <button type="submit" className={styles.submitBtn}>
-                  Submit enquiry
+                <button type="submit" className={styles.submitBtn} disabled={sending}>
+                  {sending ? "Sending..." : "Submit enquiry"}
                 </button>
 
                 {submitted && (

@@ -107,7 +107,7 @@ const Home = () => {
                     <h3>{course.title}</h3>
                     <p>{course.shortDescription}</p>
                     <div className={styles.courseFooter}>
-                      <span className={styles.price}>${course.price}</span>
+                      <span className={styles.price}>₹{course.price}</span>
                       <Link to={`/courses/${course.slug}`} className={styles.viewBtn}>
                         View Details
                       </Link>

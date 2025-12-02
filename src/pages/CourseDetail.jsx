@@ -86,6 +86,84 @@ const extrasByCourseId = {
       "Students aspiring for marketing & growth roles",
     ],
   },
+    "course-007": {
+    learn: [
+      "Build full-stack applications using Python, Django and REST APIs",
+      "Design relational database models and work with ORM",
+      "Implement authentication, authorization and secure file handling",
+      "Deploy Django apps to production environments"
+    ],
+    audience: [
+      "Students who know basic Python and want to enter web development",
+      "Working professionals moving into backend / full-stack roles",
+      "Founders who want to build production-grade MVPs with Python"
+    ]
+  },
+  "course-008": {
+    learn: [
+      "Use Java and Spring Boot to build enterprise backends",
+      "Expose REST APIs and integrate with modern frontends",
+      "Implement security, validation and error handling",
+      "Deploy Java services in production environments"
+    ],
+    audience: [
+      "Students with core Java knowledge aiming for Java developer roles",
+      "Backend developers who want to formalize Spring Boot skills",
+      "Engineers preparing for enterprise Java interviews"
+    ]
+  },
+  "course-009": {
+    learn: [
+      "Perform data cleaning and analysis with Excel and SQL",
+      "Write analytical SQL queries for business questions",
+      "Create interactive dashboards and reports in Power BI",
+      "Present insights clearly to business stakeholders"
+    ],
+    audience: [
+      "Students and freshers targeting data analyst roles",
+      "Working professionals moving from operations/finance to analytics",
+      "Anyone who works with data and wants stronger reporting skills"
+    ]
+  },
+  "course-010": {
+    learn: [
+      "Understand the core ideas behind machine learning",
+      "Implement common ML algorithms using scikit-learn",
+      "Evaluate models with the right metrics and validation",
+      "Build and ship end-to-end ML mini-projects"
+    ],
+    audience: [
+      "Beginners with basic Python looking to enter AI/ML",
+      "Software engineers transitioning into ML roles",
+      "Students preparing for ML internships and projects"
+    ]
+  },
+  "course-011": {
+    learn: [
+      "Design strong data models for BI use cases",
+      "Write DAX to create powerful measures and calculations",
+      "Build user-friendly dashboards for business teams",
+      "Publish, secure and manage Power BI content"
+    ],
+    audience: [
+      "Analysts who already use Power BI and want to go deeper",
+      "Excel / SQL users moving into BI developer roles",
+      "Consultants building dashboards for clients"
+    ]
+  },
+  "course-012": {
+    learn: [
+      "Apply DevOps principles to modern software projects",
+      "Containerize applications using Docker",
+      "Deploy and manage workloads on Kubernetes",
+      "Set up CI/CD pipelines and cloud deployments"
+    ],
+    audience: [
+      "Developers and sysadmins moving into DevOps roles",
+      "Students wanting a practical intro to DevOps tools",
+      "Teams building modern delivery pipelines for their apps"
+    ]
+  }
 };
 
 const CourseDetail = () => {
