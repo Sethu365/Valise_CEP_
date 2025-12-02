@@ -110,7 +110,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className={styles.infoLabel}>Email</p>
-                    <p className={styles.infoValue}>info@gmail.com</p>
+                    <p className={styles.infoValue}>info@conzuragroups.com</p>
                   </div>
                 </div>
 
