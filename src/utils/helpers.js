@@ -167,8 +167,8 @@ export const getQueryParams = () => {
  */
 export const setPageTitle = (title) => {
   document.title = title
-    ? `${title} | TakeOff Upskill`
-    : "TakeOff Upskill - Transform Your Career";
+    ? `${title} | Conzura Groups`
+    : "Conzura Groups - Transform Your Career";
 };
 
 /**
